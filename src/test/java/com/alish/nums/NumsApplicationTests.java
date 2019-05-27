@@ -23,7 +23,7 @@ public class NumsApplicationTests {
     public void handlesNoInputJson() {
         NumsController numsController = new NumsController();
         ResponseEntity<NumsOutput> response = numsController.emptyGet();
-        assert(response.getStatusCode().value() == HttpStatus.OK.value());
+        assert (response.getStatusCode().value() == HttpStatus.OK.value());
     }
 
     @Test
@@ -33,7 +33,7 @@ public class NumsApplicationTests {
         input.setData(new ArrayList<Integer>());
         ResponseEntity<NumsOutput> response = numsController.get(input);
         log.info(response.getBody().toString());
-        assert(response.getBody().getOutput().equalsIgnoreCase("NaN"));
+        assert (response.getBody().getOutput().equalsIgnoreCase("NaN"));
     }
 
 
@@ -46,7 +46,7 @@ public class NumsApplicationTests {
         input.setData(list);
         ResponseEntity<NumsOutput> response = numsController.get(input);
         log.info(response.getBody().toString());
-        assert(response.getBody().getOutput().equalsIgnoreCase("1.00"));
+        assert (response.getBody().getOutput().equalsIgnoreCase("1.00"));
     }
 
     @Test
@@ -60,7 +60,7 @@ public class NumsApplicationTests {
         input.setData(list);
         ResponseEntity<NumsOutput> response = numsController.get(input);
         log.info(response.getBody().toString());
-        assert(response.getBody().getOutput().equalsIgnoreCase("5.20"));
+        assert (response.getBody().getOutput().equalsIgnoreCase("5.20"));
     }
 
     @Test
@@ -74,7 +74,7 @@ public class NumsApplicationTests {
         input.setData(list);
         ResponseEntity<NumsOutput> response = numsController.get(input);
         log.info(response.getBody().toString());
-        assert(response.getBody().getOutput().equalsIgnoreCase("5.20"));
+        assert (response.getBody().getOutput().equalsIgnoreCase("5.20"));
     }
 
     @Test
@@ -89,7 +89,7 @@ public class NumsApplicationTests {
         input.setData(list);
         ResponseEntity<NumsOutput> response = numsController.get(input);
         log.info(response.getBody().toString());
-        assert(response.getBody().getOutput().equalsIgnoreCase("6.93"));
+        assert (response.getBody().getOutput().equalsIgnoreCase("6.93"));
     }
 
     @Test
@@ -104,6 +104,52 @@ public class NumsApplicationTests {
         input.setData(list);
         ResponseEntity<NumsOutput> response = numsController.get(input);
         log.info(response.getBody().toString());
-        assert(response.getBody().getOutput().equalsIgnoreCase("8.77"));
+        assert (response.getBody().getOutput().equalsIgnoreCase("8.77"));
+    }
+
+    @Test
+    public void handlesMoreThanThreeNegativesInput() {
+        NumsController numsController = new NumsController();
+        NumsInput input = new NumsInput();
+        ArrayList<Integer> list = new ArrayList();
+        list.add(-5);
+        list.add(-4);
+        list.add(-6);
+        list.add(-1);
+        input.setData(list);
+        ResponseEntity<NumsOutput> response = numsController.get(input);
+        log.info(response.getBody().toString());
+        assert (response.getBody().getOutput().equalsIgnoreCase("6.48"));
+    }
+
+
+    @Test
+    public void handlesIncrementalInput() {
+        NumsController numsController = new NumsController();
+        NumsInput input = new NumsInput();
+        ArrayList<Integer> list = new ArrayList();
+        list.add(7);
+        list.add(8);
+        list.add(9);
+        list.add(10);
+        input.setData(list);
+        ResponseEntity<NumsOutput> response = numsController.get(input);
+        log.info(response.getBody().toString());
+        assert (response.getBody().getOutput().equalsIgnoreCase("15.65"));
+    }
+
+    @Test
+    public void handlesDecrementalInput() {
+        NumsController numsController = new NumsController();
+        NumsInput input = new NumsInput();
+        ArrayList<Integer> list = new ArrayList();
+        list.add(10);
+        list.add(9);
+        list.add(8);
+        list.add(7);
+        input.setData(list);
+        ResponseEntity<NumsOutput> response = numsController.get(input);
+        log.info(response.getBody().toString());
+        assert (response.getBody().getOutput().equalsIgnoreCase("15.65"));
     }
 }
